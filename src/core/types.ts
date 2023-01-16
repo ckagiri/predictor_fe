@@ -1,5 +1,7 @@
 import { ReactNode, ReactElement, ComponentType } from 'react';
 
+import { AuthActionType } from './auth/types';
+
 /**
  * data types
  */
@@ -23,6 +25,33 @@ export interface PaginationPayload {
   perPage: number;
 }
 export type ValidUntil = Date;
+
+export interface UserIdentity {
+  id: Identifier;
+  fullName?: string;
+  avatar?: string;
+  [key: string]: any;
+}
+
+/**
+ * authProvider types
+ */
+export type AuthProvider = {
+  login: (
+      params: any
+  ) => Promise<{ redirectTo?: string | boolean } | void | any>;
+  logout: (params: any) => Promise<void | false | string>;
+  checkAuth: (params: any) => Promise<void>;
+  checkError: (error: any) => Promise<void>;
+  getIdentity?: () => Promise<UserIdentity>;
+  getPermissions: (params: any) => Promise<any>;
+  [key: string]: any;
+};
+
+export type AuthProviderFn = (
+  type: AuthActionType,
+  params?: any
+) => Promise<any>;
 
 /**
  * dataProvider types
@@ -200,6 +229,12 @@ export interface UseDataProviderOptions {
   onError?: onError;
   enabled?: boolean;
 }
+
+export type DataProviderFn = (
+  type: string,
+  resource: string,
+  params: any
+) => Promise<any>;
 
 export type RecordToStringFunction = (record: any) => string;
 
