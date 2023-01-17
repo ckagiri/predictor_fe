@@ -45,7 +45,7 @@ interface ConvertedDataProvider extends DataProvider {
  *
  * @returns {Object} A dataProvider that core-admin can use
  */
-const convertToDataProvider = (
+const convertDataProviderFn = (
   dataProviderFn: DataProviderFn
 ): ConvertedDataProvider => {
   const proxy = new Proxy(defaultDataProvider, {
@@ -67,4 +67,4 @@ const convertToDataProvider = (
   return proxy as any;
 };
 
-export default convertToDataProvider;
+export default convertDataProviderFn;

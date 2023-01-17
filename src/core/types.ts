@@ -238,6 +238,20 @@ export type DataProviderFn = (
 
 export type RecordToStringFunction = (record: any) => string;
 
+export interface ResourceDefinition {
+  readonly name: string;
+  readonly options?: any;
+  readonly hasList?: boolean;
+  readonly hasEdit?: boolean;
+  readonly hasShow?: boolean;
+  readonly hasCreate?: boolean;
+  readonly icon?: any;
+  readonly recordRepresentation?:
+      | ReactElement
+      | RecordToStringFunction
+      | string;
+}
+
 export interface ResourceOptions {
   label?: string;
   [key: string]: any;

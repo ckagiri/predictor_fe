@@ -1,7 +1,9 @@
-import { QueryClient } from 'react-query';
+import * as React from 'react';
 import { useMemo } from 'react';
+import { QueryClient } from 'react-query';
 
 import { AuthContext, convertAuthProviderFn } from '../auth';
+import { ResourceDefinitionContextProvider } from './ResourceDefinitionContext';
 import {
   AdminChildren,
   AuthProvider,
@@ -42,7 +44,9 @@ export const CoreAdminContext = (props: CoreAdminContextProps) => {
   );
 
   return (
-    {children}
+    <ResourceDefinitionContextProvider>
+      {children}
+    </ResourceDefinitionContextProvider>
   );
 };
 
