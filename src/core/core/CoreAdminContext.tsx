@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import { QueryClient } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { History } from 'history';
 
 import { AuthContext, convertAuthProviderFn } from '../auth';
 import { ResourceDefinitionContextProvider } from './ResourceDefinitionContext';
@@ -8,14 +9,19 @@ import {
   AdminChildren,
   AuthProvider,
   AuthProviderFn,
-  DataProvider
+  DataProvider,
+  DataProviderFn,
 } from '../types';
+import { convertDataProviderFn, DataProviderContext, defaultDataProvider } from '../dataProvider';
+import { memoryStore, Store, StoreContextProvider } from '../store';
+import { AdminRouter } from '../routing';
 
 export interface CoreAdminContextProps {
-  authProvider?: AuthProvider | AuthProviderFn;
+  authProvider: AuthProvider | AuthProviderFn;
   basename?: string;
   children?: AdminChildren;
-  dataProvider?: DataProvider;
+  dataProvider?: DataProvider | DataProviderFn;
+  store: Store;
   queryClient?: QueryClient;
   /**
      * @deprecated Wrap Admin inside a Router to change the routing strategy
@@ -26,14 +32,21 @@ export interface CoreAdminContextProps {
 export const CoreAdminContext = (props: CoreAdminContextProps) => {
   const {
       authProvider,
+      basename,
       dataProvider,
+      store,
       children,
       history,
+      queryClient,
   } = props;
 
   if (!dataProvider) {
     throw new Error(`Missing dataProvider prop. Core-admin requires a valid dataProvider function to work.`);
   }
+
+  const finalQueryClient = useMemo(() => queryClient || new QueryClient(), [
+    queryClient,
+  ]);
 
   const finalAuthProvider = useMemo(
       () =>
@@ -43,12 +56,32 @@ export const CoreAdminContext = (props: CoreAdminContextProps) => {
       [authProvider]
   );
 
+  const finalDataProvider = useMemo(
+    () =>
+        dataProvider instanceof Function
+            ? convertDataProviderFn(dataProvider)
+            : dataProvider,
+    [dataProvider]
+);
+
   return (
-    <ResourceDefinitionContextProvider>
-      {children}
-    </ResourceDefinitionContextProvider>
+    <AuthContext.Provider value={finalAuthProvider}>
+      <DataProviderContext.Provider value={finalDataProvider}>
+        <StoreContextProvider value={store}>
+          <QueryClientProvider client={finalQueryClient}>
+            <AdminRouter history={history} basename={basename}>
+              <ResourceDefinitionContextProvider>
+                {children}
+              </ResourceDefinitionContextProvider>
+            </AdminRouter>
+          </QueryClientProvider>
+        </StoreContextProvider>
+      </DataProviderContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
 CoreAdminContext.defaultProps = {
+  dataProvider: defaultDataProvider,
+  store: memoryStore(),
 };
