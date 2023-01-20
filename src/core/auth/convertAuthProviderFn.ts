@@ -11,7 +11,7 @@ import { AuthProvider, AuthProviderFn } from '../types';
 * Turn a function-based authProvider to an object-based one
 * @param {Function} authProviderFn An authProvider function (type, params) => Promise<any>
 *
-* @returns {Object} An authProvider that core-admin can use
+* @returns {Object} An authProvider that core can use
 */
 export default (authProviderFn: AuthProviderFn): AuthProvider => {
   const authProvider = (...args: any) => authProviderFn.apply(null, args);

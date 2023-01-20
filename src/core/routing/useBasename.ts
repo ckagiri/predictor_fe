@@ -5,7 +5,7 @@ import { BasenameContext } from './BasenameContext';
 /**
  * @see BasenameContextProvider
  *
- * import { useBasename } from 'core-admin';
+ * import { useBasename } from 'core';
  *
  * const ArticleLink = ({ title, id }) => {
  *    const basename = useBasename();

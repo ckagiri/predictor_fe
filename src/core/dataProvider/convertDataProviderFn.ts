@@ -43,7 +43,7 @@ interface ConvertedDataProvider extends DataProvider {
  *
  * @param {Function} dataProviderFn A dataProvider function (type, resource, params) => Promise<any>
  *
- * @returns {Object} A dataProvider that core-admin can use
+ * @returns {Object} A dataProvider that core can use
  */
 const convertDataProviderFn = (
   dataProviderFn: DataProviderFn

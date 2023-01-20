@@ -41,7 +41,7 @@ export const CoreAdminContext = (props: CoreAdminContextProps) => {
   } = props;
 
   if (!dataProvider) {
-    throw new Error(`Missing dataProvider prop. Core-admin requires a valid dataProvider function to work.`);
+    throw new Error(`Missing dataProvider prop. core requires a valid dataProvider function to work.`);
   }
 
   const finalQueryClient = useMemo(() => queryClient || new QueryClient(), [

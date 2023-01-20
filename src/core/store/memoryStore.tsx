@@ -13,7 +13,7 @@ type Subscription = {
  *
  * @example
  *
- * import { memoryStore } from 'core-admin';
+ * import { memoryStore } from 'core';
  *
  * const App = () => (
  *    <Admin store={memoryStore()}>
