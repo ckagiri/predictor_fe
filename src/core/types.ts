@@ -38,7 +38,7 @@ export interface UserIdentity {
  */
 export type AuthProvider = {
   login: (
-      params: any
+    params: any
   ) => Promise<{ redirectTo?: string | boolean } | void | any>;
   logout: (params: any) => Promise<void | false | string>;
   checkAuth: (params: any) => Promise<void>;
@@ -58,48 +58,48 @@ export type AuthProviderFn = (
  */
 export type DataProvider<ResourceType extends string = string> = {
   getList: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: GetListParams
+    resource: ResourceType,
+    params: GetListParams
   ) => Promise<GetListResult<RecordType>>;
 
   getOne: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: GetOneParams
+    resource: ResourceType,
+    params: GetOneParams
   ) => Promise<GetOneResult<RecordType>>;
 
   getMany: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: GetManyParams
+    resource: ResourceType,
+    params: GetManyParams
   ) => Promise<GetManyResult<RecordType>>;
 
   getManyReference: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: GetManyReferenceParams
+    resource: ResourceType,
+    params: GetManyReferenceParams
   ) => Promise<GetManyReferenceResult<RecordType>>;
 
   update: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: UpdateParams
+    resource: ResourceType,
+    params: UpdateParams
   ) => Promise<UpdateResult<RecordType>>;
 
   updateMany: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: UpdateManyParams
+    resource: ResourceType,
+    params: UpdateManyParams
   ) => Promise<UpdateManyResult<RecordType>>;
 
   create: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: CreateParams
+    resource: ResourceType,
+    params: CreateParams
   ) => Promise<CreateResult<RecordType>>;
 
   delete: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: DeleteParams<RecordType>
+    resource: ResourceType,
+    params: DeleteParams<RecordType>
   ) => Promise<DeleteResult<RecordType>>;
 
   deleteMany: <RecordType extends DataRecord = any>(
-      resource: ResourceType,
-      params: DeleteManyParams<RecordType>
+    resource: ResourceType,
+    params: DeleteManyParams<RecordType>
   ) => Promise<DeleteManyResult<RecordType>>;
 
   [key: string]: any;
@@ -115,8 +115,8 @@ export interface GetListResult<RecordType extends DataRecord = any> {
   data: RecordType[];
   total?: number;
   pageInfo?: {
-      hasNextPage?: boolean;
-      hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+    hasPreviousPage?: boolean;
   };
 }
 
@@ -148,8 +148,8 @@ export interface GetManyReferenceResult<RecordType extends DataRecord = any> {
   data: RecordType[];
   total?: number;
   pageInfo?: {
-      hasNextPage?: boolean;
-      hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+    hasPreviousPage?: boolean;
   };
 }
 
@@ -247,9 +247,9 @@ export interface ResourceDefinition {
   readonly hasCreate?: boolean;
   readonly icon?: any;
   readonly recordRepresentation?:
-      | ReactElement
-      | RecordToStringFunction
-      | string;
+  | ReactElement
+  | RecordToStringFunction
+  | string;
 }
 
 export interface ResourceOptions {
@@ -259,6 +259,7 @@ export interface ResourceOptions {
 
 export interface ResourceProps {
   name: string;
+  pathName: string;
   list?: ComponentType<any> | ReactElement;
   create?: ComponentType<any> | ReactElement;
   edit?: ComponentType<any> | ReactElement;
@@ -271,10 +272,23 @@ export interface ResourceProps {
 
 export type ResourceElement = ReactElement<ResourceProps>;
 export type RenderResourcesFunction = (
-    permissions: any
+  permissions: any
 ) =>
-    | ReactNode // (permissions) => <><Resource /><Resource /><Resource /></>
-    | Promise<ReactNode> // (permissions) => fetch().then(() => <><Resource /><Resource /><Resource /></>)
-    | ResourceElement[] // // (permissions) => [<Resource />, <Resource />, <Resource />]
-    | Promise<ResourceElement[]>; // (permissions) => fetch().then(() => [<Resource />, <Resource />, <Resource />])
+  | ReactNode // (permissions) => <><Resource /><Resource /><Resource /></>
+  | Promise<ReactNode> // (permissions) => fetch().then(() => <><Resource /><Resource /><Resource /></>)
+  | ResourceElement[] // // (permissions) => [<Resource />, <Resource />, <Resource />]
+  | Promise<ResourceElement[]>; // (permissions) => fetch().then(() => [<Resource />, <Resource />, <Resource />])
 export type AdminChildren = RenderResourcesFunction | ReactNode;
+
+export type TitleComponent = string | ReactElement<any>;
+export type CatchAllComponent = ComponentType<{ title?: TitleComponent }>;
+
+export interface CoreLayoutProps {
+  children?: ReactNode;
+}
+
+export type LayoutComponent = ComponentType<CoreLayoutProps>;
+export type LoadingComponent = ComponentType<{
+  loadingPrimary?: string;
+  loadingSecondary?: string;
+}>;
