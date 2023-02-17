@@ -1,6 +1,6 @@
 import AuthContext from "./AuthContext";
 import useAuthState from './useAuthState';
-import convertAuthProviderFn from "./convertAuthProviderFn";
+import convertToAuthProvider from "./convertToAuthProvider";
 import usePermissions from './usePermissions';
 import usePermissionsOptimized from './usePermissionsOptimized';
 import WithPermissions, { WithPermissionsProps } from './WithPermissions';
@@ -10,7 +10,7 @@ export * from './useCheckAuth';
 
 export {
   AuthContext,
-  convertAuthProviderFn,
+  convertToAuthProvider,
   useLogout,
   usePermissions,
   usePermissionsOptimized,

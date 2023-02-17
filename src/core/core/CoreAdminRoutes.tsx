@@ -31,6 +31,7 @@ export const CoreAdminRoutes = (props: CoreAdminRoutesProps) => {
     loading: LoadingPage,
     requireAuth,
     ready: Ready,
+    title,
   } = props;
 
   const [canRender, setCanRender] = useState(!requireAuth);
@@ -71,7 +72,7 @@ export const CoreAdminRoutes = (props: CoreAdminRoutesProps) => {
         path="/*"
         element={
           <div>
-            <Layout>
+            <Layout title={title}>
               <Routes>
                 {customRoutesWithLayout}
                 {Children.map(resources, resource => (

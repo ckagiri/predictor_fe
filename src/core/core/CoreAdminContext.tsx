@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { History } from 'history';
 
-import { AuthContext, convertAuthProviderFn } from '../auth';
+import { AuthContext, convertToAuthProvider } from '../auth';
 import { ResourceDefinitionContextProvider } from './ResourceDefinitionContext';
 import {
   AdminChildren,
@@ -12,7 +12,7 @@ import {
   DataProvider,
   DataProviderFn,
 } from '../types';
-import { convertDataProviderFn, DataProviderContext, defaultDataProvider } from '../dataProvider';
+import { convertToDataProvider, DataProviderContext, defaultDataProvider } from '../dataProvider';
 import { memoryStore, Store, StoreContextProvider } from '../store';
 import { AdminRouter } from '../routing';
 
@@ -31,13 +31,13 @@ export interface CoreAdminContextProps {
 
 export const CoreAdminContext = (props: CoreAdminContextProps) => {
   const {
-      authProvider,
-      basename,
-      dataProvider,
-      store,
-      children,
-      history,
-      queryClient,
+    authProvider,
+    basename,
+    dataProvider,
+    store,
+    children,
+    history,
+    queryClient,
   } = props;
 
   if (!dataProvider) {
@@ -49,20 +49,20 @@ export const CoreAdminContext = (props: CoreAdminContextProps) => {
   ]);
 
   const finalAuthProvider = useMemo(
-      () =>
-          authProvider instanceof Function
-              ? convertAuthProviderFn(authProvider)
-              : authProvider,
-      [authProvider]
+    () =>
+      authProvider instanceof Function
+        ? convertToAuthProvider(authProvider)
+        : authProvider,
+    [authProvider]
   );
 
   const finalDataProvider = useMemo(
     () =>
-        dataProvider instanceof Function
-            ? convertDataProviderFn(dataProvider)
-            : dataProvider,
+      dataProvider instanceof Function
+        ? convertToDataProvider(dataProvider)
+        : dataProvider,
     [dataProvider]
-);
+  );
 
   return (
     <AuthContext.Provider value={finalAuthProvider}>

@@ -1,3 +1,4 @@
+export * from './localStorageStore';
 export * from './memoryStore';
 export * from './StoreContext';
 export * from './StoreContextProvider';

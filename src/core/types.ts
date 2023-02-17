@@ -283,8 +283,11 @@ export type AdminChildren = RenderResourcesFunction | ReactNode;
 export type TitleComponent = string | ReactElement<any>;
 export type CatchAllComponent = ComponentType<{ title?: TitleComponent }>;
 
+export type LoginComponent = ComponentType<{}> | ReactElement<any>;
+
 export interface CoreLayoutProps {
   children?: ReactNode;
+  title?: TitleComponent;
 }
 
 export type LayoutComponent = ComponentType<CoreLayoutProps>;
