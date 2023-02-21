@@ -6,14 +6,14 @@ import { ResourceProps } from '../types';
 import { ResourceContextProvider } from './ResourceContextProvider';
 
 export const Resource = (props: ResourceProps) => {
-  const { create: Create, edit: Edit, list: List, name, show: Show } = props;
+  const { create: Create, edit: Edit, list: List, name, path, show: Show } = props;
 
   return (
     <ResourceContextProvider value={name}>
       <Routes>
         {Create && (
           <Route
-            path="create/*"
+            path={`${path}/create/*`}
             element={isValidElement(Create) ? Create : <Create />}
           />
         )}
@@ -25,13 +25,13 @@ export const Resource = (props: ResourceProps) => {
         )}
         {Edit && (
           <Route
-            path=":id/*"
+            path={`${path}/:id/*`}
             element={isValidElement(Edit) ? Edit : <Edit />}
           />
         )}
         {List && (
           <Route
-            path="/*"
+            path={`${path}/*`}
             element={isValidElement(List) ? List : <List />}
           />
         )}

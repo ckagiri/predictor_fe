@@ -259,7 +259,8 @@ export interface ResourceOptions {
 
 export interface ResourceProps {
   name: string;
-  pathName: string;
+  path: string;
+  pathKey?: string;
   list?: ComponentType<any> | ReactElement;
   create?: ComponentType<any> | ReactElement;
   edit?: ComponentType<any> | ReactElement;

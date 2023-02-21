@@ -78,7 +78,7 @@ export const CoreAdminRoutes = (props: CoreAdminRoutesProps) => {
                 {Children.map(resources, resource => (
                   <Route
                     key={resource.props.name}
-                    path={`${resource.props.name}/*`}
+                    path={`${resource.props.path}/*`}
                     element={resource}
                   />
                 ))}
@@ -88,7 +88,7 @@ export const CoreAdminRoutes = (props: CoreAdminRoutesProps) => {
                     resources.length > 0 ? (
                       <Navigate
                         to={createPath({
-                          resourcePathname: resources[0].props.pathName,
+                          resourcePathname: resources[0].props.path,
                           type: 'list',
                         })}
                       />
