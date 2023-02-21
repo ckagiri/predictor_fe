@@ -9,7 +9,7 @@ import dataProviderFactory from './dataProvider';
 
 const API = process.env.REACT_APP_API as string;
 const dataProvider = dataProviderFactory(API);
-const Layout = () => <div></div>
+const Layout = ({children}: any) => <div>{children}</div>
 
 function App() {
   return (

@@ -6,39 +6,39 @@ import { ResourceProps } from '../types';
 import { ResourceContextProvider } from './ResourceContextProvider';
 
 export const Resource = (props: ResourceProps) => {
-  const { create: Create, edit: Edit, list: List, name, path, show: Show } = props;
+  const { create: Create, edit: Edit, list: List, name, show: Show } = props;
 
-  return (
-    <ResourceContextProvider value={name}>
-      <Routes>
-        {Create && (
-          <Route
-            path={`${path}/create/*`}
-            element={isValidElement(Create) ? Create : <Create />}
-          />
-        )}
-        {Show && (
-          <Route
-            path=":id/show/*"
-            element={isValidElement(Show) ? Show : <Show />}
-          />
-        )}
-        {Edit && (
-          <Route
-            path={`${path}/:id/*`}
-            element={isValidElement(Edit) ? Edit : <Edit />}
-          />
-        )}
-        {List && (
-          <Route
-            path={`${path}/*`}
-            element={isValidElement(List) ? List : <List />}
-          />
-        )}
-        {props.children}
-      </Routes>
-    </ResourceContextProvider>
-  );
+    return (
+        <ResourceContextProvider value={name}>
+            <Routes>
+                {Create && (
+                    <Route
+                        path="create/*"
+                        element={isValidElement(Create) ? Create : <Create />}
+                    />
+                )}
+                {Show && (
+                    <Route
+                        path=":id/show/*"
+                        element={isValidElement(Show) ? Show : <Show />}
+                    />
+                )}
+                {Edit && (
+                    <Route
+                        path=":id/*"
+                        element={isValidElement(Edit) ? Edit : <Edit />}
+                    />
+                )}
+                {List && (
+                    <Route
+                        path="/*"
+                        element={isValidElement(List) ? List : <List />}
+                    />
+                )}
+                {props.children}
+            </Routes>
+        </ResourceContextProvider>
+    );
 };
 
 Resource.raName = 'Resource';
