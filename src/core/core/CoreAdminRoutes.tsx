@@ -88,7 +88,7 @@ export const CoreAdminRoutes = (props: CoreAdminRoutesProps) => {
                     resources.length > 0 ? (
                       <Navigate
                         to={createPath({
-                          resourcePathname: resources[0].props.path,
+                          resourcePath: resources[0].props.path,
                           type: 'list',
                         })}
                       />

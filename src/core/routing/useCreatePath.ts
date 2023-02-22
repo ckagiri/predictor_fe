@@ -40,32 +40,32 @@ import { useBasename } from './useBasename';
 export const useCreatePath = () => {
     const basename = useBasename();
     return useCallback(
-        ({ resourcePathname, id, type }: CreatePathParams): string => {
+        ({ resourcePath, id, type }: CreatePathParams): string => {
             switch (type) {
                 case 'list':
-                    return removeDoubleSlashes(`${basename}/${resourcePathname}`);
+                    return removeDoubleSlashes(`${basename}/${resourcePath}`);
                 case 'create':
                     return removeDoubleSlashes(
-                        `${basename}/${resourcePathname}/create`
+                        `${basename}/${resourcePath}/create`
                     );
                 case 'edit': {
                     if (id == null) {
                         // maybe the id isn't defined yet
                         // instead of throwing an error, fallback to list link
-                        return removeDoubleSlashes(`/${resourcePathname}`);
+                        return removeDoubleSlashes(`/${resourcePath}`);
                     }
                     return removeDoubleSlashes(
-                        `${basename}/${resourcePathname}/${encodeURIComponent(id)}`
+                        `${basename}/${resourcePath}/${encodeURIComponent(id)}`
                     );
                 }
                 case 'show': {
                     if (id == null) {
                         // maybe the id isn't defined yet
                         // instead of throwing an error, fallback to list link
-                        return removeDoubleSlashes(`${basename}/${resourcePathname}`);
+                        return removeDoubleSlashes(`${basename}/${resourcePath}`);
                     }
                     return removeDoubleSlashes(
-                        `${basename}/${resourcePathname}/${encodeURIComponent(id)}/show`
+                        `${basename}/${resourcePath}/${encodeURIComponent(id)}/show`
                     );
                 }
                 default:
@@ -78,7 +78,7 @@ export const useCreatePath = () => {
 
 export interface CreatePathParams {
     type: string;
-    resourcePathname: string;
+    resourcePath: string;
     id?: Identifier;
 }
 
