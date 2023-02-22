@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import { Identifier } from '../types';
+import { useBasename } from './useBasename';
 
 /**
  * Get a callback to create a link to a given page in the admin app.
@@ -37,14 +38,15 @@ import { Identifier } from '../types';
  * };
  */
 export const useCreatePath = () => {
+    const basename = useBasename();
     return useCallback(
         ({ resourcePathname, id, type }: CreatePathParams): string => {
             switch (type) {
                 case 'list':
-                    return removeDoubleSlashes(`/${resourcePathname}`);
+                    return removeDoubleSlashes(`${basename}/${resourcePathname}`);
                 case 'create':
                     return removeDoubleSlashes(
-                        `/${resourcePathname}/create`
+                        `${basename}/${resourcePathname}/create`
                     );
                 case 'edit': {
                     if (id == null) {
@@ -53,17 +55,17 @@ export const useCreatePath = () => {
                         return removeDoubleSlashes(`/${resourcePathname}`);
                     }
                     return removeDoubleSlashes(
-                        `/${resourcePathname}/${encodeURIComponent(id)}`
+                        `${basename}/${resourcePathname}/${encodeURIComponent(id)}`
                     );
                 }
                 case 'show': {
                     if (id == null) {
                         // maybe the id isn't defined yet
                         // instead of throwing an error, fallback to list link
-                        return removeDoubleSlashes(`/${resourcePathname}`);
+                        return removeDoubleSlashes(`${basename}/${resourcePathname}`);
                     }
                     return removeDoubleSlashes(
-                        `/${resourcePathname}/${encodeURIComponent(id)}/show`
+                        `${basename}/${resourcePathname}/${encodeURIComponent(id)}/show`
                     );
                 }
                 default:
