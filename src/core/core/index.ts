@@ -7,4 +7,6 @@ export * from './ResourceContext';
 export * from './ResourceContextProvider';
 export * from './ResourceDefinitionContext';
 export * from './useResourceDefinitionContext';
-
+export * from './useResourceContext';
+export * from './useResourceDefinition';
+export * from './useResourceDefinitions';

@@ -110,6 +110,8 @@ export interface GetListParams {
   sort: SortPayload;
   filter: any;
   meta?: any;
+  source?: any;
+  resourceCache?: any;
 }
 export interface GetListResult<RecordType extends DataRecord = any> {
   data: RecordType[];
@@ -123,6 +125,7 @@ export interface GetListResult<RecordType extends DataRecord = any> {
 export interface GetOneParams<RecordType extends DataRecord = any> {
   id: RecordType['id'];
   meta?: any;
+  source?: any;
 }
 export interface GetOneResult<RecordType extends DataRecord = any> {
   data: RecordType;
@@ -240,6 +243,8 @@ export type RecordToStringFunction = (record: any) => string;
 
 export interface ResourceDefinition {
   readonly name: string;
+  readonly path: string;
+  readonly pathKey?: string;
   readonly options?: any;
   readonly hasList?: boolean;
   readonly hasEdit?: boolean;

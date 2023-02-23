@@ -5,6 +5,8 @@ import * as fetchUtils from './fetch';
 
 export * from './dataFetchActions';
 export * from './defaultDataProvider';
+export * from './useDataProvider';
+export * from './useGetList';
 
 export {
   convertToDataProvider,
