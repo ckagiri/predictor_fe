@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { ResourceContext, ResourceContextValue } from './ResourceContext';
+import { ResourceContextValue } from '../types';
+import { ResourceContext } from './ResourceContext';
 
 /**
  * Create a Resource Context with the resource name

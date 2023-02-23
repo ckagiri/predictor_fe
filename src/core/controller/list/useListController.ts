@@ -1,9 +1,9 @@
 import { UseQueryOptions } from 'react-query';
 
 import { useGetList, UseGetListHookValue } from '../../dataProvider';
-import { DataRecord } from '../../types';
+import { DataRecord, ResourceInfo } from '../../types';
 import { useNotify } from '../../notification';
-import { useResourceDefinition,  } from '../../core';
+import { useResourceContext,  } from '../../core';
 
 /**
  * Prepare data for the List view
@@ -28,11 +28,11 @@ export const useListController = <RecordType extends DataRecord = any>(
     const {
         queryOptions = {},
     } = props;
-    const { name: resourceName, path: resourcePath } = useResourceDefinition()
+    const resource: ResourceInfo = useResourceContext();
     const notify = useNotify();
     const { meta, ...otherQueryOptions } = queryOptions;
 
-    if (!resourceName) {
+    if (!resource.name) {
         throw new Error(
             `<List> was called outside of a ResourceContext and without a resource prop. You must set the resource prop.`
         );
@@ -46,8 +46,7 @@ export const useListController = <RecordType extends DataRecord = any>(
         isFetching,
         refetch,
     } = useGetList<RecordType>(
-        resourceName,
-        resourcePath,
+        resource,
         {
             meta,
         },
@@ -71,7 +70,7 @@ export const useListController = <RecordType extends DataRecord = any>(
         isFetching,
         isLoading,
         refetch,
-        resource: resourceName,
+        resource,
         total: total!,
     };
 };
@@ -81,7 +80,7 @@ export interface ListControllerProps<RecordType extends DataRecord = any> {
         data: RecordType[];
         total?: number;
     }> & { meta?: any };
-    resource?: string;
+    resource?: ResourceInfo;
 }
 
 export interface ListControllerResult<RecordType extends DataRecord = any> {
@@ -90,7 +89,7 @@ export interface ListControllerResult<RecordType extends DataRecord = any> {
     isFetching: boolean;
     isLoading: boolean;
     refetch: (() => void) | UseGetListHookValue<RecordType>['refetch'];
-    resource: string;
+    resource: ResourceInfo;
     total: number;
 }
 

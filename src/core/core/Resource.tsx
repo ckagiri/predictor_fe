@@ -6,10 +6,10 @@ import { ResourceProps } from '../types';
 import { ResourceContextProvider } from './ResourceContextProvider';
 
 export const Resource = (props: ResourceProps) => {
-  const { create: Create, edit: Edit, list: List, name, show: Show } = props;
+  const { create: Create, edit: Edit, list: List, name, path, show: Show } = props;
 
     return (
-        <ResourceContextProvider value={name}>
+        <ResourceContextProvider value={{ name, path }}>
             <Routes>
                 {Create && (
                     <Route

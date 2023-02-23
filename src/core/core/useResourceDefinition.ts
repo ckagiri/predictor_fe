@@ -3,7 +3,7 @@ import defaults from 'lodash/defaults';
 
 import { useResourceDefinitions } from './useResourceDefinitions';
 import { useResourceContext } from './useResourceContext';
-import { ResourceDefinition } from '../types';
+import { ResourceContextValue, ResourceDefinition } from '../types';
 
 /**
  * Hook to get the definition of a given resource
@@ -29,7 +29,7 @@ import { ResourceDefinition } from '../types';
 export const useResourceDefinition = (
     props?: UseResourceDefinitionOptions
 ): ResourceDefinition => {
-    const resource = useResourceContext(props);
+    const { name: resource } = useResourceContext(props);
     const resourceDefinitions = useResourceDefinitions();
     const { hasCreate, hasEdit, hasList, hasShow, recordRepresentation } =
         props || {};
@@ -60,7 +60,7 @@ export const useResourceDefinition = (
 };
 
 export interface UseResourceDefinitionOptions {
-    readonly resource?: string;
+    readonly resource?: ResourceContextValue;
     readonly hasList?: boolean;
     readonly hasEdit?: boolean;
     readonly hasShow?: boolean;

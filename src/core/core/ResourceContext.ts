@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { ResourceContextValue } from '../types';
 
 /**
  * Context to store the current resource name.
@@ -10,13 +11,11 @@ import { createContext } from 'react';
  * import { useResourceContext } from 'core';
  *
  * const MyCustomEditTitle = props => {
- *     const name = useResourceContext(props);
+ *     const { name } = useResourceContext(props);
  *
  *     return (
  *         <h1>{name}</h1>
  *     );
  * };
  */
-export const ResourceContext = createContext<ResourceContextValue>('');
-
-export type ResourceContextValue = string;
+export const ResourceContext = createContext<ResourceContextValue>({ name: '', path: ''});

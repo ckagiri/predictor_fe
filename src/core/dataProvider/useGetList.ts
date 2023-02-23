@@ -6,7 +6,7 @@ import {
     useQueryClient,
 } from 'react-query';
 
-import { DataRecord, GetListParams, GetListResult } from '../types';
+import { DataRecord, GetListParams, GetListResult, ResourceInfo } from '../types';
 import { useDataProvider } from './useDataProvider';
 
 /**
@@ -53,8 +53,7 @@ import { useDataProvider } from './useDataProvider';
  * };
  */
 export const useGetList = <RecordType extends DataRecord = any>(
-    resourceName: string,
-    resourcePath: string,
+    resource: ResourceInfo,
     params: Partial<GetListParams> = {},
     options?: UseQueryOptions<GetListResult<RecordType>, Error>
 ): UseGetListHookValue<RecordType> => {
@@ -63,7 +62,6 @@ export const useGetList = <RecordType extends DataRecord = any>(
         sort = { field: 'id', order: 'DESC' },
         filter = {},
         meta,
-        source = { name: resourceName, path: resourcePath }
     } = params;
     const dataProvider = useDataProvider();
     const queryClient = useQueryClient();
@@ -72,10 +70,10 @@ export const useGetList = <RecordType extends DataRecord = any>(
         Error,
         GetListResult<RecordType>
     >(
-        [resourceName, 'getList', { pagination, sort, filter, meta, path: resourcePath }],
+        [resource.name, 'getList', { pagination, sort, filter, meta, path: resource.path }],
         () =>
             dataProvider
-                .getList<RecordType>(resourcePath, {
+                .getList<RecordType>(resource.path, {
                     pagination,
                     sort,
                     filter,
@@ -92,8 +90,11 @@ export const useGetList = <RecordType extends DataRecord = any>(
                 const { data } = value;
                 // optimistically populate the getOne cache
                 data.forEach(record => {
+                    const id = record.slug || record.id;
+                    const name = resource.source?.name || resource.name;
+                    const path = resource.source?.path || resource.path;
                     queryClient.setQueryData(
-                        [source.name, 'getOne', { id: String(record.slug || record.id), meta, path: source.path }],
+                        [name, 'getOne', { id: String(id), meta, path }],
                         oldRecord => oldRecord ?? record
                     );
                 });

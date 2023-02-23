@@ -257,6 +257,17 @@ export interface ResourceDefinition {
   | string;
 }
 
+export type ResourceContextValue = {
+  name: string;
+  path: string;
+  source?: {
+    name: string;
+    path: string;
+  }
+};
+
+export type ResourceInfo = ResourceContextValue;
+
 export interface ResourceOptions {
   label?: string;
   [key: string]: any;

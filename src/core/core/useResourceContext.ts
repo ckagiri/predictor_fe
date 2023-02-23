@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { ResourceContext, ResourceContextValue } from './ResourceContext';
+import { ResourceContextValue } from '../types';
+import { ResourceContext } from './ResourceContext';
 
 /**
  * Hook to read the resource from the ResourceContext.
@@ -12,12 +13,12 @@ import { ResourceContext, ResourceContextValue } from './ResourceContext';
  * const ResourceName = (props) => {
  *   const resource = useResourceContext(props);
  *   const getResourceLabel = useGetResourceLabel();
- *   return <>{getResourceLabel(resource, 1)}</>;
+ *   return <>{getResourceLabel(resource.name, 1)}</>;
  * }
  *
  * // use it in a resource context
  * const MyComponent = () => (
- *   <ResourceContextProvider value="posts">
+ *   <ResourceContextProvider value={{name: posts}}>
  *     <ResourceName />
  *     ...
  *   </ResourceContextProvider>
@@ -26,18 +27,18 @@ import { ResourceContext, ResourceContextValue } from './ResourceContext';
  * // override resource via props
  * const MyComponent = () => (
  *   <>
- *     <ResourceName resource="posts"/>
+ *     <ResourceName resource={{name: posts}}/>
  *     ...
  *   </>
  * );
  *
- * @returns {ResourceContextValue} The resource name, e.g. 'posts'
+ * @returns {ResourceContextValue} The resource, e.g. '{ name: posts}'
  */
 export const useResourceContext = <
-    ResourceInformationsType extends Partial<{ resource: string }>
+    ResourceInformationsType extends Partial<{ resource: ResourceContextValue }>
 >(
     props?: ResourceInformationsType
 ): ResourceContextValue => {
     const context = useContext(ResourceContext);
-    return (props && props.resource) || context;
+    return (props && props.resource) || (context) ;
 };
