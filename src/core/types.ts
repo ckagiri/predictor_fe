@@ -14,8 +14,8 @@ export interface DataRecord {
 }
 
 export interface SortPayload {
-  field: string;
-  order: string;
+  field?: string;
+  order?: string;
 }
 export interface FilterPayload {
   [k: string]: any;
@@ -110,8 +110,6 @@ export interface GetListParams {
   sort: SortPayload;
   filter: any;
   meta?: any;
-  source?: any;
-  resourceCache?: any;
 }
 export interface GetListResult<RecordType extends DataRecord = any> {
   data: RecordType[];

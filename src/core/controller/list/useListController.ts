@@ -4,6 +4,7 @@ import { useGetList, UseGetListHookValue } from '../../dataProvider';
 import { DataRecord, ResourceInfo } from '../../types';
 import { useNotify } from '../../notification';
 import { useResourceContext,  } from '../../core';
+import { generatePath, useParams } from 'react-router';
 
 /**
  * Prepare data for the List view
@@ -28,14 +29,25 @@ export const useListController = <RecordType extends DataRecord = any>(
     const {
         queryOptions = {},
     } = props;
-    const resource: ResourceInfo = useResourceContext();
+    const resourceInfo = useResourceContext();
     const notify = useNotify();
     const { meta, ...otherQueryOptions } = queryOptions;
 
-    if (!resource.name) {
+    if (!resourceInfo) {
         throw new Error(
             `<List> was called outside of a ResourceContext and without a resource prop. You must set the resource prop.`
         );
+    }
+
+    const { name, path, source } = resourceInfo;
+    const pathParams = useParams();
+    const resourcePath = generatePath(path, pathParams);
+    const resource: ResourceInfo = { name, path: resourcePath }
+
+    if (source) {
+      const { name, path } = source;
+      const resourcePath = generatePath(path, pathParams);
+      resource.source = { name, path: resourcePath}
     }
 
     const {

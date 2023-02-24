@@ -3,10 +3,10 @@ import { ListBase, useListContext } from '../../core/controller';
 
 const CompetitionList = () => {
   return (
-    // <ListBase>
-    //   <CompetitionListView />
-    // </ListBase>
-    <div>Yay </div>
+    <ListBase>
+      <CompetitionListView />
+    </ListBase>
+    // <div>Yay </div>
   );
 };
 

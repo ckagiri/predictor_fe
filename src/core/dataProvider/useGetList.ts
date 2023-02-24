@@ -90,11 +90,11 @@ export const useGetList = <RecordType extends DataRecord = any>(
                 const { data } = value;
                 // optimistically populate the getOne cache
                 data.forEach(record => {
-                    const id = record.slug || record.id;
-                    const name = resource.source?.name || resource.name;
-                    const path = resource.source?.path || resource.path;
+                    const recordId = record.slug || record.id;
+                    const resourceName = resource.source?.name || resource.name;
+                    const resoucePath = resource.source?.path || resource.path;
                     queryClient.setQueryData(
-                        [name, 'getOne', { id: String(id), meta, path }],
+                        [resourceName, 'getOne', { id: String(recordId), meta, path: resoucePath }],
                         oldRecord => oldRecord ?? record
                     );
                 });
