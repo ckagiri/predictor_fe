@@ -26,7 +26,7 @@ export default (
     const rangeEnd = page * perPage - 1;
 
     const query = {
-      sort: JSON.stringify([field, order]),
+      sort: JSON.stringify([field, order].filter(v => v !== undefined)),
       range: JSON.stringify([rangeStart, rangeEnd]),
       filter: JSON.stringify(params.filter),
     };

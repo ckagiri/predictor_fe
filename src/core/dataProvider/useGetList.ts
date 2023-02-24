@@ -59,7 +59,7 @@ export const useGetList = <RecordType extends DataRecord = any>(
 ): UseGetListHookValue<RecordType> => {
     const {
         pagination = { page: 1, perPage: 25 },
-        sort = { field: 'id', order: 'DESC' },
+        sort = {},
         filter = {},
         meta,
     } = params;

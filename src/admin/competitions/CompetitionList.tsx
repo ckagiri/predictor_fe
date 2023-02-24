@@ -6,7 +6,6 @@ const CompetitionList = () => {
     <ListBase>
       <CompetitionListView />
     </ListBase>
-    // <div>Yay </div>
   );
 };
 
