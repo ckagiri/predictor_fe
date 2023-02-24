@@ -3,30 +3,30 @@ import { ListBase, useListContext } from '../../core/controller';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { useBasename } from '../../core';
 
-const SeasonList = () => {
+const GameRoundList = () => {
   return (
     <ListBase>
-      <SeasonListView />
+      <GameRoundListView />
     </ListBase>
   );
 };
 
-const RoundsLink = ({ season, seasonsPath }: any) => {
+const MatchesLink = ({ round, roundsPath }: any) => {
   const basename = useBasename();
-  const to = `${basename}/${seasonsPath}/${season.slug}/gamerounds`;
-  return season ? (
+  const to = `${basename}/${roundsPath}/${round.slug}/matches`;
+  return round ? (
     <Link
       to={to}
     >
-      Rounds
+      Matches
     </Link>
   ) : null;
 };
 
-const SeasonListView = () => {
+const GameRoundListView = () => {
   const { data, isLoading, resource } = useListContext();
   const pathParams = useParams();
-  const seasonsPath = generatePath(resource.path, pathParams);
+  const roundsPath = generatePath(resource.path, pathParams);
 
   if (isLoading) {
     return <React.Fragment>Loading...</React.Fragment>;
@@ -37,11 +37,11 @@ const SeasonListView = () => {
       {data.map(record => (
         <li key={record.id}>
           {record.name}&nbsp;
-          <RoundsLink season={record} seasonsPath={seasonsPath} />
+          <MatchesLink round={record} roundsPath={roundsPath} />
         </li>
       ))}
     </ul>
   );
 };
 
-export default SeasonList;
+export default GameRoundList;

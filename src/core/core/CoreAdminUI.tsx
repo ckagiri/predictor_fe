@@ -31,7 +31,7 @@ export interface CoreAdminUIProps {
 
 export const CoreAdminUI = (props: CoreAdminUIProps) => {
   const {
-    catchAll = Noop,
+    catchAll = () => (<div>Not Found</div>),
     children,
     layout = DefaultLayout,
     loading = Noop,

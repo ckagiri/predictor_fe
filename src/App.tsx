@@ -8,6 +8,8 @@ import authProvider from './authProvider';
 import { Resource } from './core';
 import dataProviderFactory from './dataProvider';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import GameRoundList from './admin/rounds/GameRoundList';
+import MatchList from './admin/matches/MatchList';
 
 const API = process.env.REACT_APP_API as string;
 const dataProvider = dataProviderFactory(API);
@@ -35,19 +37,25 @@ const LigiAdmin = () => (
       pathKey="competitions"
       list={CompetitionList}
     />
-    {/* <Resource
-    name="seasons"
-    path="competitions/:competition/:seasons"
-    pathKey="competitions.edit.seasons"
-    list={SeasonList}
-  /> */}
-  {/* <Resource
-    name="roundMatches"
-    path="competitions/:competition/seasons/:season/gamerounds/:round/matches"
-    pathKey="competitions.edit.seasons.edit.rounds.edit.matches"
-    source={{ name: seasonMatches, path: "competitions/:competition/seasons/:season/matches" }}
-    list={SeasonList}
-  /> */}
+    <Resource
+      name="seasons"
+      path="competitions/:competition/seasons"
+      pathKey="competitions.edit.seasons"
+      list={SeasonList}
+    />
+    <Resource
+      name="rounds"
+      path="competitions/:competition/seasons/:season/gamerounds"
+      pathKey="competitions.edit.seasons.edit.rounds"
+      list={GameRoundList}
+    />
+    <Resource
+      name="roundMatches"
+      path="competitions/:competition/seasons/:season/gamerounds/:round/matches"
+      pathKey="competitions.edit.seasons.edit.rounds.edit.matches"
+      source={{ name: 'seasonMatches', path: 'competitions/:competition/seasons/:season/matches' }}
+      list={MatchList}
+    />
   </Admin>
 )
 
