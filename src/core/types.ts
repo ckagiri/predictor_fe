@@ -255,7 +255,7 @@ export interface ResourceDefinition {
   | string;
 }
 
-export type ResourceContextValue = {
+export type ResourceInfo = {
   name: string;
   path: string;
   source?: {
@@ -263,9 +263,6 @@ export type ResourceContextValue = {
     path: string;
   }
 };
-
-export type ResourceInfo = ResourceContextValue;
-
 export interface ResourceOptions {
   label?: string;
   [key: string]: any;
@@ -275,6 +272,7 @@ export interface ResourceProps {
   name: string;
   path: string;
   pathKey?: string;
+  source?: { name: string; path: string; }
   list?: ComponentType<any> | ReactElement;
   create?: ComponentType<any> | ReactElement;
   edit?: ComponentType<any> | ReactElement;

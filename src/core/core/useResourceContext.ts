@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ResourceContextValue } from '../types';
+import { ResourceInfo } from '../types';
 import { ResourceContext } from './ResourceContext';
 
 /**
@@ -32,13 +32,13 @@ import { ResourceContext } from './ResourceContext';
  *   </>
  * );
  *
- * @returns {ResourceContextValue} The resource, e.g. '{ name: posts}'
+ * @returns {ResourceInfo} The resource, e.g. '{ name: posts}'
  */
 export const useResourceContext = <
-    ResourceInformationsType extends Partial<{ resource: ResourceContextValue }>
+    ResourceInformationsType extends Partial<{ resource: ResourceInfo }>
 >(
     props?: ResourceInformationsType
-): ResourceContextValue => {
+): ResourceInfo => {
     const context = useContext(ResourceContext);
     return (props && props.resource) || (context) ;
 };

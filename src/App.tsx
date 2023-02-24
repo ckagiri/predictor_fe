@@ -41,6 +41,13 @@ const LigiAdmin = () => (
     pathKey="competitions.edit.seasons"
     list={SeasonList}
   /> */}
+  {/* <Resource
+    name="roundMatches"
+    path="competitions/:competition/seasons/:season/gamerounds/:round/matches"
+    pathKey="competitions.edit.seasons.edit.rounds.edit.matches"
+    source={{ name: seasonMatches, path: "competitions/:competition/seasons/:season/matches" }}
+    list={SeasonList}
+  /> */}
   </Admin>
 )
 

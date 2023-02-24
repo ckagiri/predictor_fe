@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { ResourceContextValue } from '../types';
+import { ResourceInfo } from '../types';
 
 /**
  * Context to store the current resource name.
@@ -18,4 +18,4 @@ import { ResourceContextValue } from '../types';
  *     );
  * };
  */
-export const ResourceContext = createContext<ResourceContextValue>({ name: '', path: ''});
+export const ResourceContext = createContext<ResourceInfo>({ name: '', path: ''});
