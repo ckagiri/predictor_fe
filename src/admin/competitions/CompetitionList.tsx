@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListBase, useListContext } from '../../core/controller';
-import { generatePath, Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useBasename } from '../../core';
 
 const CompetitionList = () => {
@@ -11,10 +11,10 @@ const CompetitionList = () => {
   );
 };
 
-const SeasonsLink = ({ competition, competitionsPath }: any) => {
+const SeasonsLink = ({ competitionSlug, competitionsPath }: any) => {
   const basename = useBasename();
-  const to = `${basename}/${competitionsPath}/${competition.slug}/seasons`;
-  return competition ? (
+  const to = `${basename}/${competitionsPath}/${competitionSlug}/seasons`;
+  return competitionSlug ? (
     <Link
       to={to}
     >
@@ -25,8 +25,6 @@ const SeasonsLink = ({ competition, competitionsPath }: any) => {
 
 const CompetitionListView = () => {
   const { data, isLoading, resource } = useListContext();
-  const pathParams = useParams();
-  const competitionsPath = generatePath(resource.path, pathParams);
 
   if (isLoading) {
     return <React.Fragment>Loading...</React.Fragment>;
@@ -37,7 +35,7 @@ const CompetitionListView = () => {
       {data.map(record => (
         <li key={record.id}>
           {record.name}&nbsp;
-          <SeasonsLink competition={record} competitionsPath={competitionsPath} />
+          <SeasonsLink competitionSlug={record.slug} competitionsPath={resource.path} />
         </li>
       ))}
     </ul>

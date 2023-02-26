@@ -10,6 +10,7 @@ import dataProviderFactory from './dataProvider';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import GameRoundList from './admin/rounds/GameRoundList';
 import MatchList from './admin/matches/MatchList';
+import TeamList from './admin/teams/TeamList';
 
 const API = process.env.REACT_APP_API as string;
 const dataProvider = dataProviderFactory(API);
@@ -42,6 +43,12 @@ const LigiAdmin = () => (
       path="competitions/:competition/seasons"
       pathKey="competitions.edit.seasons"
       list={SeasonList}
+    />
+    <Resource
+      name="rounds"
+      path="competitions/:competition/seasons/:season/teams"
+      pathKey="competitions.edit.seasons.edit.teams"
+      list={TeamList}
     />
     <Resource
       name="rounds"

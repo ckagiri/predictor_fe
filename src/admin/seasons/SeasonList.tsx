@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListBase, useListContext } from '../../core/controller';
-import { generatePath, Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useBasename } from '../../core';
 
 const SeasonList = () => {
@@ -11,10 +11,10 @@ const SeasonList = () => {
   );
 };
 
-const RoundsLink = ({ season, seasonsPath }: any) => {
+const RoundsLink = ({ seasonSlug, seasonsPath }: any) => {
   const basename = useBasename();
-  const to = `${basename}/${seasonsPath}/${season.slug}/gamerounds`;
-  return season ? (
+  const to = `${basename}/${seasonsPath}/${seasonSlug}/gamerounds`;
+  return seasonSlug ? (
     <Link
       to={to}
     >
@@ -23,10 +23,20 @@ const RoundsLink = ({ season, seasonsPath }: any) => {
   ) : null;
 };
 
+const TeamsLink = ({ seasonSlug, seasonsPath }: any) => {
+  const basename = useBasename();
+  const to = `${basename}/${seasonsPath}/${seasonSlug}/teams`;
+  return seasonSlug ? (
+    <Link
+      to={to}
+    >
+      Teams
+    </Link>
+  ) : null;
+};
+
 const SeasonListView = () => {
   const { data, isLoading, resource } = useListContext();
-  const pathParams = useParams();
-  const seasonsPath = generatePath(resource.path, pathParams);
 
   if (isLoading) {
     return <React.Fragment>Loading...</React.Fragment>;
@@ -37,7 +47,9 @@ const SeasonListView = () => {
       {data.map(record => (
         <li key={record.id}>
           {record.name}&nbsp;
-          <RoundsLink season={record} seasonsPath={seasonsPath} />
+          <RoundsLink seasonSlug={record.slug} seasonsPath={resource.path} />
+          &nbsp;
+          <TeamsLink seasonSlug={record.slug} seasonsPath={resource.path} />
         </li>
       ))}
     </ul>

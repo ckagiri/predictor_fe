@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListBase, useListContext } from '../../core/controller';
-import { generatePath, Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useBasename } from '../../core';
 
 const GameRoundList = () => {
@@ -11,10 +11,10 @@ const GameRoundList = () => {
   );
 };
 
-const MatchesLink = ({ round, roundsPath }: any) => {
+const MatchesLink = ({ roundSlug, roundsPath }: any) => {
   const basename = useBasename();
-  const to = `${basename}/${roundsPath}/${round.slug}/matches`;
-  return round ? (
+  const to = `${basename}/${roundsPath}/${roundSlug}/matches`;
+  return roundSlug ? (
     <Link
       to={to}
     >
@@ -25,8 +25,6 @@ const MatchesLink = ({ round, roundsPath }: any) => {
 
 const GameRoundListView = () => {
   const { data, isLoading, resource } = useListContext();
-  const pathParams = useParams();
-  const roundsPath = generatePath(resource.path, pathParams);
 
   if (isLoading) {
     return <React.Fragment>Loading...</React.Fragment>;
@@ -37,7 +35,7 @@ const GameRoundListView = () => {
       {data.map(record => (
         <li key={record.id}>
           {record.name}&nbsp;
-          <MatchesLink round={record} roundsPath={roundsPath} />
+          <MatchesLink roundSlug={record.slug} roundsPath={resource.path} />
         </li>
       ))}
     </ul>
