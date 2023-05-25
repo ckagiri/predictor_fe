@@ -45,7 +45,7 @@ const LigiAdmin = () => (
       list={SeasonList}
     />
     <Resource
-      name="rounds"
+      name="teams"
       path="competitions/:competition/seasons/:season/teams"
       pathKey="competitions.edit.seasons.edit.teams"
       list={TeamList}
